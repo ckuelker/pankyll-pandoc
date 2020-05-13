@@ -1,5 +1,5 @@
 
-$if(toc)$
+$if(TOC)$
 $toc$
 
 $endif$

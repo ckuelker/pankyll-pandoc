@@ -1,7 +1,7 @@
 ---
 title:  pankyll-pandoc/README.md
 author: Christian Külker
-date:   2020-03-22
+date:   2020-05-13
 
 ---
 
@@ -21,7 +21,8 @@ templates and configuration that can be leveraged by pankyll.
 
 | Version | Date       | Author           | Notes                             |
 | ------- | ---------- | ---------------- | --------------------------------- |
-| 0.1.0   | 2020-03-22 | Christian Külker | initial release                   |
+| 0.1.1   | 2020-05-13 | Christian Külker | Fix TOC feature                   |
+| 0.1.0   | 2020-03-22 | Christian Külker | Initial release                   |
 
 # Introduction
 
