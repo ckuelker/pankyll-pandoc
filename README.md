@@ -1,28 +1,39 @@
 ---
-title:  pankyll-pandoc/README.md
+title: pankyll-pandoc README
 author: Christian Külker
-date:   2020-05-13
+date: 2022-05-30
+version: 0.1.2
 
 ---
 
 # Abstract
 
-This document describes briefly the aim and content for pankyll-pandoc. The
-goal of pankyll-pandoc is to add functionality to pandoc by providing filters
-templates and configuration that can be leveraged by pankyll.
+This document describes briefly the aim and content of **pankyll-pandoc**. The
+goal of **pankyll-pandoc** is to add functionality to [pandoc] by providing
+[Lua] filters and [LaTeX] templates and configuration that can be leveraged by
+[pankyll] to created for example PDFs or to count words of a [Markdown]
+document.
+
+As it can be seen below the invocation of [pandoc] might implicate a plethora
+of command-line options. Even if parts of this repository is designed for and
+can be used without [pankyll] it is usually more convenient once [pankyll] is
+set up to use [pankyll] to generate PDFs.
 
 ![Github license](https://img.shields.io/github/license/ckuelker/pankyll-pandoc.svg)
 ![Github issues](https://img.shields.io/github/issues/ckuelker/pankyll-pandoc.svg?style=popout-square)
 ![Github code size in bytes](https://img.shields.io/github/languages/code-size/ckuelker/pankyll-pandoc.svg)
+
 ![Git repo size](https://img.shields.io/github/repo-size/ckuelker/pankyll-pandoc.svg)
 ![Last commit](https://img.shields.io/github/last-commit/ckuelker/pankyll-pandoc.svg)
 
-# Changes
+## History
 
-| Version | Date       | Author           | Notes                             |
-| ------- | ---------- | ---------------- | --------------------------------- |
-| 0.1.1   | 2020-05-13 | Christian Külker | Fix TOC feature                   |
-| 0.1.0   | 2020-03-22 | Christian Külker | Initial release                   |
+| Version | Date       | Notes                                                |
+| ------- | ---------- | ---------------------------------------------------- |
+| 0.1.2   | 2022-05-30 | history, -changes, introduction, rm dupl. license,   |
+|         |            | +usage sec., +PDF                                    |
+| 0.1.1   | 2020-05-13 | Fix TOC feature                                      |
+| 0.1.0   | 2020-03-22 | Initial release                                      |
 
 # Introduction
 
@@ -35,7 +46,51 @@ more precise than self parsing of Markdown files. The `links-md-to-html.lua`
 filter replaces inline Markdown links with links to HTML pages. And the
 `replace_verbatim_with_lstlisting.lua` dispatches two different verbatim
 environments. All filters need a newer **Pandoc** version to work with and have
-bin tested with **Pandoc** v2.2.1.
+bin tested with **Pandoc** v2.2.1 and v.2.10.1 and **texlive** 2017, 2020 and
+2022.
+
+# Usage
+
+## Filters
+
+```bash
+pandoc -t html5 -o out.html --lua-filter=links-md-to-html.lua in.md
+pandoc -o out.pdf --lua-filter=replace_verbatim_with_lstlisting.lua in md
+pandoc -t gfm --lua-filter=word-count.lua in.md
+```
+
+## Templates
+
+This command will create the file `README.pdf` from the [Markdown] source
+`README.md` by using 2 filters and the `pankyll-pandoc` template.
+
+```bash
+pandoc -f 'markdown+implicit_header_references+blank_before_blockquote\
++fenced_code_blocks+backtick_code_blocks+fenced_code_attributes\
++line_blocks+definition_lists+simple_tables+table_captions\
++multiline_tables+pipe_tables+yaml_metadata_block+strikeout+superscript\
++subscript+shortcut_reference_links+implicit_figures+link_attributes\
++footnotes+inline_notes+emoji+autolink_bare_uris' --verbose --toc \
+--number-sections --from 'markdown+implicit_header_references\
++blank_before_blockquote+fenced_code_blocks+backtick_code_blocks\
++fenced_code_attributes+line_blocks+definition_lists+simple_tables\
++table_captions+multiline_tables+pipe_tables+yaml_metadata_block\
++strikeout+superscript+subscript+shortcut_reference_links\
++implicit_figures+link_attributes+footnotes+inline_notes+emoji\
++autolink_bare_uris' --to latex --standalone --highlight-style zenburn \
+-V 'lang:en-US' -V 'papersize=a4' -V 'fontsize=12pt' \
+-V 'documentclass=article' -V 'mainfont=Noto Sans CJK JP' \
+-V 'sansfont=Noto Sans CJK JP' -V 'monofont=WenQuanYi Micro Hei Mono' \
+-V 'monofontoptions=BoldFont={Noto Sans Mono CJK JP Bold}' \
+-V 'linkcolor=Violet' -V 'citecolor=Green' -V 'urlcolor=MidnightBlue' \
+-V 'toccolor=Gray' -V 'pagestyle=headings' \
+--template=templates/pankyll.latex --pdf-engine=xelatex \
+--fail-if-warnings \
+--lua-filter=filters/replace_verbatim_with_lstlisting.lua \
+--lua-filter=filters/links-md-to-html.lua -o README.pdf README.md
+```
+
+It was tested with pandoc 2.10.1 and texlive 2017, 2020 and 2022.
 
 # Author
 
@@ -43,43 +98,10 @@ bin tested with **Pandoc** v2.2.1.
 
 # License And Copyright
 
-    Copyright (C) 2020 by Christian Kuelker
+    Copyright (C) 2020, 2022 by Christian Külker, see LICENSE file.
 
-    This program is free software; you can redistribute it and/or modify it
-    under the terms of the GNU General Public License as published by the Free
-    Software Foundation; either version 3, or (at your option) any later
-    version.
-
-    This program is distributed in the hope that it will be useful, but WITHOUT
-    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-    more details.
-
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, write to the Free Software Foundation, Inc., 59
-    Temple Place, Suite 330, Boston, MA 02111-1307 USA
-
-# DISCLAIMER OF WARRANTY
-
-    THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE
-    LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR
-    OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND,
-    EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE
-    ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.
-    SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY
-    SERVICING, REPAIR OR CORRECTION.
-
-
-# LIMITATION OF LIABILITY
-
-    IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL
-    ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS THE
-    PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
-    GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
-    USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF
-    DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD
-    PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
-    EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
-    SUCH DAMAGES.
-
+[pandoc]: https://pandoc.org/
+[pankyll]: https://www.pankyll.org/
+[Lua]: https://www.lua.org/
+[LaTeX]: https://www.latex-project.org/
+[Markdown]: https://daringfireball.net/projects/markdown/
