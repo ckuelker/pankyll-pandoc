@@ -31,7 +31,7 @@ set up to use [pankyll] to generate PDFs.
 | Version | Date       | Notes                                                |
 | ------- | ---------- | ---------------------------------------------------- |
 | 0.1.2   | 2022-05-30 | history, -changes, introduction, rm dupl. license,   |
-|         |            | +usage sec., +PDF                                    |
+|         |            | +usage sec., +PDF, links, +Makefile                  |
 | 0.1.1   | 2020-05-13 | Fix TOC feature                                      |
 | 0.1.0   | 2020-03-22 | Initial release                                      |
 
@@ -90,7 +90,10 @@ pandoc -f 'markdown+implicit_header_references+blank_before_blockquote\
 --lua-filter=filters/links-md-to-html.lua -o README.pdf README.md
 ```
 
-It was tested with pandoc 2.10.1 and texlive 2017, 2020 and 2022.
+For some reason the long list of backslashes (\\) do not work, remove them and
+execute this command in one line or use the Makefile via `rm README.pdf;make
+README.pdf` It was tested with [pandoc] 2.10.1 and [texlive] 2017, 2020 and
+2022.
 
 # Author
 
@@ -105,3 +108,4 @@ It was tested with pandoc 2.10.1 and texlive 2017, 2020 and 2022.
 [Lua]: https://www.lua.org/
 [LaTeX]: https://www.latex-project.org/
 [Markdown]: https://daringfireball.net/projects/markdown/
+[texlive]: https://www.tug.org/texlive/
