@@ -1,22 +1,25 @@
 % +---------------------------------------------------------------------------+
 % | pankyll.latex                                                             |
 % |                                                                           |
-% | This is a pandoc 2.2.1 template derived from the pandoc default template. |
-% | Then it was merged with book/markdown template which derived from a       |
-% | template that was written by Christian Külker to convert a report.        |
+% | This is a pandoc 2.2.1 ~ 2.10.1 template derived from the pandoc default  |
+% | template. Then it was merged with book/markdown template which derived    |
+% | from a template that was written by Christian Külker to convert a report. |
 % | Ideas from the eisvogel template by Pascal Wagler have been used.         |
 % |                                                                           |
-% | Version: 0.1.0 (change inline)                                            |
+% | Version: 0.1.1 (change inline)                                            |
 % |                                                                           |
 % | Changes:                                                                  |
 % |                                                                           |
+% | 0.1.1 2022-05-30 Christian Külker <c@c8i.org>                             |
+% |     - Update file header                                                  |
+% |     - Change texttt (reduce gray by 5% and remove border)                 |
 % | 0.1.0 2020-02-24 Christian Külker <c@c8i.org>                             |
-% |     - initial release                                                     |
+% |     - Initial release                                                     |
 % |                                                                           |
 % +---------------------------------------------------------------------------+
 % Copyright (c) 2014 - 2020, John MacFarlane
 % Copyright (c) 2017 - 2020, Pascal Wagler
-% Copyright (c) 2020, Christian Kuelker
+% Copyright (c) 2020, 2022, Christian Kuelker
 %
 % All rights reserved.
 %
@@ -415,8 +418,7 @@ $endif$
 % === [ COSTUMIZATION ] =======================================================
 % https://tex.stackexchange.com/questions/42961/adding-a-highlight-to-texttt-blocks
 \let\OldTexttt\texttt
-%\renewcommand{\texttt}[1]{\OldTexttt{\framebox{#1}}}
-\renewcommand{\texttt}[1]{\fcolorbox{Black}{Gray!20}{\OldTexttt{#1}}}
+\renewcommand{\texttt}[1]{\colorbox{Gray!15}{\OldTexttt{#1}}}
 
 % last page
 \usepackage{lastpage}
